@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:google_maps/map_screen.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
+      home: MapScreen(),
     );
   }
 }
@@ -25,6 +26,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   //late final GoogleMapController _googleMapController;
 
   LocationData? myCurrentLocation;
@@ -39,9 +41,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void initilalize(){
     Location.instance.changeSettings(
-      interval: 3000,
-      distanceFilter: 10,
-      accuracy: LocationAccuracy.high
+        interval: 3000,
+        distanceFilter: 10,
+        accuracy: LocationAccuracy.high
     );
   }
 
@@ -64,12 +66,12 @@ class _HomeScreenState extends State<HomeScreen> {
   void listenToMyLocation() {
     _locationSubscription =
         Location.instance.onLocationChanged.listen((location) {
-      if (location != myCurrentLocation) myCurrentLocation = location;
-      print('Listening to location $location');
-      if (mounted) {
-        setState(() {});
-      }
-    });
+          if (location != myCurrentLocation) myCurrentLocation = location;
+          print('Listening to location $location');
+          if (mounted) {
+            setState(() {});
+          }
+        });
   }
 
   void stopToLisetenLocation() {
